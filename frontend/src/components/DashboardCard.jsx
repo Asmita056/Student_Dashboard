@@ -21,7 +21,7 @@ const DashboardCard = ({ company, onRegister, isRegistered }) => {
     const maxLength = 100; // Maximum characters to show before truncating
 
     return (
-      <div onClick={() => setExpanded(!expanded)} className="cursor-pointer">
+      <div onClick={toggleDescription} className="cursor-pointer">
         <p className="text-gray-700">
           {expanded || jobDescription.length <= maxLength
             ? jobDescription
@@ -30,6 +30,25 @@ const DashboardCard = ({ company, onRegister, isRegistered }) => {
             <span className="text-blue-500 hover:underline">...Read More</span>
           )}
         </p>
+        {expanded && (
+          <>
+            <p className="text-gray-700">
+              <strong>10th Criteria:</strong> {company.criteria_10th}
+            </p>
+            <p className="text-gray-700">
+              <strong>12th Criteria:</strong> {company.criteria_12th}
+            </p>
+            <p className="text-gray-700">
+              <strong>Degree Criteria:</strong> {company.deg_criteria}
+            </p>
+            <p className="text-gray-700">
+              <strong>Diploma Criteria:</strong> {company.diploma_criteria}
+            </p>
+            <p className="text-gray-700">
+              <strong>Eligible Branches:</strong> {company.eligible_branches}
+            </p>
+          </>
+        )}
       </div>
     );
   };
@@ -48,9 +67,23 @@ const DashboardCard = ({ company, onRegister, isRegistered }) => {
             <strong>Role:</strong> {company.roles}
           </p>
           <p className="text-gray-700">
-            <strong>Salary:</strong> {formatSalary(company.package_details)}
+            <strong>CTC: </strong> {formatSalary(company.package_details)}
           </p>
-          <p className="text-gray-700">{company.package_details}</p>
+          <p className="text-gray-700">
+            <strong>10th Criteria: </strong> {company.criteria_10th}
+          </p>
+          <p className="text-gray-700">
+            <strong>12th Criteria: </strong> {company.criteria_12th}
+          </p>
+          <p className="text-gray-700">
+            <strong>Degree Criteria: </strong> {company.deg_criteria}
+          </p>
+          <p className="text-gray-700">
+            <strong>Diploma Criteria: </strong> {company.diploma_criteria}
+          </p>
+          <p className="text-gray-700">
+            <strong>Eligible Branches: </strong> {company.eligible_branches}
+          </p>
         </>
       ),
     });
@@ -89,7 +122,7 @@ const DashboardCard = ({ company, onRegister, isRegistered }) => {
 export default DashboardCard;
 
 // import React, { useState } from "react";
-// import CustomModal from "./CustomModal";
+// import CustomModal from "./CustomModal"; // Assuming CustomModal component path
 
 // const DashboardCard = ({ company, onRegister, isRegistered }) => {
 //   const [expanded, setExpanded] = useState(false);
@@ -110,24 +143,36 @@ export default DashboardCard;
 //     const jobDescription = company.job_description;
 //     const maxLength = 100; // Maximum characters to show before truncating
 
-//     if (jobDescription.length <= maxLength) {
-//       return <p className="text-gray-700">{jobDescription}</p>;
-//     }
-
 //     return (
-//       <p className="text-gray-700">
-//         {expanded
-//           ? jobDescription
-//           : `${jobDescription.slice(0, maxLength)}... `}
-//         {!expanded && (
-//           <button
-//             onClick={toggleDescription}
-//             className="text-blue-500 hover:underline focus:outline-none inline-block"
-//           >
-//             ...Read More
-//           </button>
+//       <div onClick={toggleDescription} className="cursor-pointer">
+//         <p className="text-gray-700">
+//           {expanded || jobDescription.length <= maxLength
+//             ? jobDescription
+//             : `${jobDescription.slice(0, maxLength)}... `}
+//           {!expanded && jobDescription.length > maxLength && (
+//             <span className="text-blue-500 hover:underline">...Read More</span>
+//           )}
+//         </p>
+//         {expanded && (
+//           <>
+//             <p className="text-gray-700">
+//               <strong>Criteria 10th:</strong> {company.criteria_10th}
+//             </p>
+//             <p className="text-gray-700">
+//               <strong>Criteria 12th:</strong> {company.criteria_12th}
+//             </p>
+//             <p className="text-gray-700">
+//               <strong>Degree Criteria:</strong> {company.deg_criteria}
+//             </p>
+//             <p className="text-gray-700">
+//               <strong>Diploma Criteria:</strong> {company.diploma_criteria}
+//             </p>
+//             <p className="text-gray-700">
+//               <strong>Eligible Branches:</strong> {company.eligible_branches}
+//             </p>
+//           </>
 //         )}
-//       </p>
+//       </div>
 //     );
 //   };
 
@@ -145,9 +190,23 @@ export default DashboardCard;
 //             <strong>Role:</strong> {company.roles}
 //           </p>
 //           <p className="text-gray-700">
-//             <strong>Salary:</strong> {formatSalary(company.salary)}
+//             <strong>CTC: </strong> {formatSalary(company.package_details)}
 //           </p>
-//           <p className="text-gray-700">{company.package_details}</p>
+//           <p className="text-gray-700">
+//             <strong>10th Criteria: </strong> {company.criteria_10th}
+//           </p>
+//           <p className="text-gray-700">
+//             <strong>12th Criteria: </strong> {company.criteria_12th}
+//           </p>
+//           <p className="text-gray-700">
+//             <strong>Degree Criteria: </strong> {company.deg_criteria}
+//           </p>
+//           <p className="text-gray-700">
+//             <strong>Diploma Criteria: </strong> {company.diploma_criteria}
+//           </p>
+//           <p className="text-gray-700">
+//             <strong>Eligible Branches: </strong> {company.eligible_branches}
+//           </p>
 //         </>
 //       ),
 //     });
@@ -163,7 +222,7 @@ export default DashboardCard;
 //       </h3>
 //       {renderDescription()}
 //       <p className="text-gray-700">
-//         <strong>Salary: </strong>
+//         <strong>CTC:</strong>{" "}
 //         {company ? formatSalary(company.package_details) : "Loading..."}
 //       </p>
 //       <p className="text-gray-700">
@@ -172,7 +231,7 @@ export default DashboardCard;
 
 //       <button
 //         onClick={() => onRegister(company)}
-//         className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded  ${
+//         className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded ${
 //           isRegistered ? "bg-gray-500 cursor-not-allowed" : "hover:bg-blue-600"
 //         }`}
 //         disabled={isRegistered}
